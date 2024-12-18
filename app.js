@@ -1,20 +1,29 @@
-import express from "express";
+import express from "express"
 import config from "config"
 
+import "./utils/dbConnect.js"
+import userRouter from "./controllers/users/index.js";
+import adminsRouter from "./controllers/admins/index.js"
 
-const app = express();
+
+const app = express()
 
 const PORT = config.get("PORT")
 
-app.get("/sam",(req,res)=>{
+app.use(express.json())
+
+app.get("/",(req,res)=>{
     try {
-        res.status(200).json("HELLO");
+        res.status(200).json({msg:"hello howld"})
     } catch (error) {
         console.log(error);
+        res.status(500).json({msg:error})
     }
 })
 
-app.listen(PORT,()=>{
-    console.log(`server is started ${PORT}`);
-})
+app.use("/users",userRouter)
+app.use("/admins",adminsRouter)
 
+app.listen(PORT,()=>{
+    console.log(`Server is running  ${PORT}`);
+})
