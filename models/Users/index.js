@@ -24,11 +24,6 @@ const userSchema = new mongoose.Schema({
     type: Number,
     required: false,
   },
-  phone: {
-    type: String,
-    required: true,
-    unique: true,
-  },
 });
 
 // 3 params (customName, schemaVariableName, collectionname)
